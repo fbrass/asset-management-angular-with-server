@@ -1,0 +1,90 @@
+<div class="page-header">
+    <h1>{{titleText}}
+        <small>{{subTitleText}}</small>
+    </h1>
+</div>
+
+<div class="container-fluid">
+    <div class="legend-container" style="margin-top:2em">
+        <span class="the-legend">{{legendText}}</span>
+
+        <form name="assetform" role="form" novalidate="novalidate">
+
+            <div class="form-group">
+                <label for="assetlogo" ng-show="!dropSupported" class="control-label">Asset logo</label>
+                <input ng-show="!dropSupported" type="text" ng-model="asset.logo" id="assetlogo"/>
+                <div ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="file-upload-drag-over"
+                     ng-show="dropSupported" class="file-upload-drop-area">
+                    <div class="cell">
+                        <div class="content">
+                            <img ng-show="imageUrl" ng-src="{{imageUrl}}"/>
+                        </div>
+                        <span ng-show="!imageUrl">Drop logo here</span>
+                    </div>
+                </div>
+                <div ng-file-drop-available="dropSupported=true" ng-show="!dropSupported">
+                    HTML5 Drop File is not supported!
+                </div>
+                <a ng-click="removeImage()" ng-show="imageUrl">Remove image</a>
+            </div>
+
+
+            <div class="form-group" ng-class="{'has-error':asssetform.name.$invalid && !assetform.name.$pristine}">
+                <label class="control-label">Asset Name:</label>
+                <input ng-model="asset.name" required name="name" type="text" class="form-control" placeholder="Name"
+                       autofocus="autofocus">
+                <span ng-show="assetform.name.$invalid && !assetform.name.$pristine" class="help-block">
+                    Name is required
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Asset Type:</label>
+                <input ng-model="asset.type_id" name="type_id" type="text" class="form-control"
+                       placeholder="needed asset type id">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Location:</label>
+                <input ng-model="asset.location_id" name="location_id" type="text" class="form-control"
+                       placeholder="needed location id">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Description:</label>
+                <input ng-model="asset.comment" name="comment" type="text" class="form-control"
+                       placeholder="Optional comment">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Construction Date:</label>
+                <input ng-model="asset.construction_date" name="construction_date" type="date" class="form-control"
+                       placeholder="Construction date">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Opening Value:</label>
+                <input ng-model="asset.opening_value" name="opening_value" type="number" class="form-control"
+                       placeholder="Opening value">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Currency:</label>
+                <input ng-model="asset.currency" name="currency" type="text" class="form-control" placeholder="curency">
+
+
+            </div>
+
+            <button ng-click="saveAsset(asset)" ng-disabled="assetform.$invalid" type="submit" class="btn btn-primary">
+                {{saveAssetText}}
+            </button>
+            <button ng-click="cancelEdit()" ng-disabled="!isEditMode" type="button" class="btn btn-default">
+                {{cancelText}}
+            </button>
+
+
+        </form>
+    </div>
+</div>
+
+

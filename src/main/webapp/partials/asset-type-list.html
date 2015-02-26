@@ -1,0 +1,43 @@
+<div class="page-header">
+    <h1>Asset Type</h1>
+</div>
+
+<div class="container-fluid">
+
+    <div  >
+        <p class="text-center"><a href="#/create-asset-type"><strong>Create Asset Type</strong></a></p>
+        <!--or review <a href="#/asset-type/"><strong>existing</strong></a> asset type?</p>-->
+    </div>
+
+    <div class="legend-container" ng-show="assetTypeActive.length">
+
+        <span class="the-legend">All types of assets</span>
+
+        <div class="table-responsive">
+            <table class="table table-striped asset-types-items">
+                <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Version</th>
+                    <th>Description</th>
+                    <th>Maker</th>
+                    <th>Function</th>
+                    <th>Comment</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="assetType in assetTypeActive">
+                    <td class="col1"><a href="#/asset/{{assetType.type_id}}">{{assetType.assetTypeName}}</a></td>
+                    <td class="col2">{{assetType.version}}</td>
+                    <td class="col3">{{assetType.description}}</td>
+                    <td class="col4">{{assetType.make}}</td>
+                    <td class="col5">{{assetType.function}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+</div>
