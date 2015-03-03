@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name="Asset.findAll",query = "SELECT a from Asset a order by a.name"),
+        @NamedQuery(name = "Asset.findAll", query = "SELECT a from Asset a order by a.name"),
 })
 public class Asset {
 
@@ -29,7 +29,13 @@ public class Asset {
     @NotNull
     private String name;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "uploadfileid")
+    private UploadFile logo;
+
+    private String Version;
     private String comment;
+
     private int openingValue;
     private String currency;
 
@@ -87,5 +93,30 @@ public class Asset {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public String getVersion() {
+        return Version;
+    }
+
+    public void setVersion(String version) {
+        Version = version;
+    }
+
+    public UploadFile getLogo() {
+        return logo;
+    }
+
+    public void setLogo(UploadFile logo) {
+        this.logo = logo;
+    }
+
+    public boolean hasLogo() {
+        if(logo!=null){
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

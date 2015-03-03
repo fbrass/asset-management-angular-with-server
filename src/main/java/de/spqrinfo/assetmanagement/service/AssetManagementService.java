@@ -61,23 +61,33 @@ public class AssetManagementService {
         this.em.remove(assetType);
     }
 
-    }
+
 
     @Transactional
-    public void createAsset(final AssetType assetType, final Asset asset {
+    public void createAsset(final AssetType assetType, final Asset asset) {
         asset.setAssetID(null);
         asset.setAssetType(assetType);
 
         this.em.persist(asset);
     }
 
+    @Transactional
+    public List<Asset> getAssets(Integer pageSize, Integer page) {
+        final TypedQuery<Asset> query= this.em.createNamedQuery("Asset.findAll",Asset.class);
+
+        if(pageSize != null && page!=null){
+            query.setFirstResult((page - 1)*pageSize);
+            query.setMaxResults(pageSize);
+        }
+
+        return query.getResultList();
+    }
 
 
 
+    public Asset getAsset(long id) {
+        return this.em.find(Asset.class,id);
 
-
-
-
-
+    }
 
 }
