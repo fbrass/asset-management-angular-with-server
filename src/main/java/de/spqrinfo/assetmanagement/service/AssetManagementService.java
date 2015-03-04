@@ -2,11 +2,13 @@ package de.spqrinfo.assetmanagement.service;
 
 import de.spqrinfo.assetmanagement.persistence.Asset;
 import de.spqrinfo.assetmanagement.persistence.AssetType;
+import de.spqrinfo.assetmanagement.persistence.UploadFile;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -38,7 +40,7 @@ public class AssetManagementService {
     }
 
     @Transactional
-    pubic AssetType createAssetType(final AssetType assetType){
+    public AssetType createAssetType(final AssetType assetType){
         this.em.persist(assetType);
         return assetType;
     }
@@ -50,7 +52,7 @@ public class AssetManagementService {
     }
 
     @Transactional
-    public AssetType getAssetType(final long assetId){
+    public AssetType getAssetType(final long typeId){
         final AssetType assetType= this.em.find(AssetType.class, typeId);
         return assetType;
     }

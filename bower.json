@@ -1,0 +1,19 @@
+{
+  "name": "asset-management-angular-with-server",
+  "description": "asset management app for AngularJS with Postgres and Wildfly",
+  "version": "0.0.0",
+  "homepage": "http://spqr-info.de/",
+  "license": "Apache",
+  "private": "true",
+  "dependencies": {
+    "angular": "1.2.x",
+    "angular-route": "~1.2.x",
+    "angular-loader": "1.2.x",
+    "angular-mocks": "~1.2.x",
+    "angular-resource": "~1.2.x",
+    "jquery": "1.11.x",
+    "bootstrap": "3.2.x",
+    "ng-file-upload": "1.4.x",
+    "angular-bootstrap": "~0.11.0"
+  }
+}

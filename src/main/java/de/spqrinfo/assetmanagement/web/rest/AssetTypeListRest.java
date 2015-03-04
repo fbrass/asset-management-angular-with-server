@@ -8,17 +8,22 @@ import de.spqrinfo.assetmanagement.web.rest.dto.AssetPaginatedDto;
 
 import javax.inject.Inject;
 import javax.websocket.server.PathParam;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
  * Created by Felix on 26.02.2015.
  */
 @Path("/assettypelist/")
 @Produces(APPLICATION_JSON)
+@Consumes(APPLICATION_JSON)
 public class AssetTypeListRest {
 
     private static final Logger log = Logger.getLogger(AssetTypeListRest.class.getName());
@@ -29,8 +34,8 @@ public class AssetTypeListRest {
     private AssetManagementService assetManagementService;
 
     @GET
-    @Path("{assetId}")
-    public AssetDto getAsset(@PathParam("assetId") final long id) {
+    @Path("{typeId}")
+    public AssetDto getAsset(@PathParam("typeId") final long id) {
         final Asset a = this.assetManagementService.getAsset(id);
         return getAssetDto(a);
     }
@@ -44,28 +49,11 @@ public class AssetTypeListRest {
 
 
     private AssetPaginatedDto getAssetPaginatedDto(final Integer pageSize, final Integer page, final String searchText) {
-        log.log(INFO, "getPaginatedAll pageSize{0}, page{1}, serachText{2}", new Object[]{pageSize, page, searchText});
-
-        if (pageSize == null && page != null || pageSize != null && page == null) {
-            throw new IllegalArgumentException("pageSize goes with page parameter");
-        }
-
-        if (pageSize != null&& (pageSize<1 || pageSize>PAGE_SIZE_MAX)){
-            throw new IllegalArgumentException("pageSize is invalid");
-        }
-
-        if(page != null && page <1){
-            throw new IllegalArgumentException("page is invalid");
-        }
-
-        final List<Asset> assets;
-        if ( searchText==null|| searchText.isEmpty()){
-            assets= this.assetManagementService.getAssets(pageSize,page);
-        }
+        return null;
     }
 
     private static AssetDto getAssetDto(final Asset asset) {
-        if (a = null) {
+        if (asset == null) {
             return null;
         }
         final AssetDto a = new AssetDto();
