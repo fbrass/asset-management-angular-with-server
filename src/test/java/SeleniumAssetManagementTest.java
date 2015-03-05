@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.*;
 
 import javax.validation.constraints.AssertTrue;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
@@ -67,6 +68,7 @@ public class SeleniumAssetManagementTest  {
         WebElement inputGroup= getWhenVisible(driver, By.className("input-group"), 10);
         WebElement inputField = inputGroup.findElement(By.tagName("input"));
         inputField.sendKeys("SPQR");
+        driver.manage().timeouts().implicitlyWait(1000, TimeUnit.MILLISECONDS);
         WebElement assetList = getWhenVisible(driver, By.className("asset-list"), 10);
         List<WebElement> assets = assetList.findElements(By.tagName("li"));
         assertTrue(assets.size()==1);
