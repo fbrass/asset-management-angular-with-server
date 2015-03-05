@@ -1,21 +1,15 @@
 package de.spqrinfo.assetmanagement.web.rest;
 
-import de.spqrinfo.assetmanagement.persistence.Asset;
 import de.spqrinfo.assetmanagement.persistence.AssetType;
 import de.spqrinfo.assetmanagement.service.AssetManagementService;
-import de.spqrinfo.assetmanagement.web.rest.dto.AssetDto;
-import de.spqrinfo.assetmanagement.web.rest.dto.AssetPaginatedDto;
 import de.spqrinfo.assetmanagement.web.rest.dto.AssetTypeListDto;
 
 import javax.inject.Inject;
-import javax.websocket.server.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;

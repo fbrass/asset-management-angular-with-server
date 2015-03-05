@@ -7,12 +7,12 @@ import java.util.List;
 /**
  * Created by Felix on 03.03.2015.
  */
-public class AssetPaginatedDto {
+public class AssetListDto {
 
     private final long total;
     private final List<AssetDto> assets;
 
-    public AssetPaginatedDto(final long total, final List<AssetDto> assets) {
+    public AssetListDto(final long total, final List<AssetDto> assets) {
         this.total=total;
         this.assets=assets;
     }
