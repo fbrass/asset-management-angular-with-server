@@ -14,7 +14,7 @@ assetManagementController.controller('EditAssetTypeCtrl', ['$scope', function ($
     //not implemented yet
 }]);
 
-assetManagementController.controller('AssetsCtrl', ['$scope', '$route', '$routeParams', 'AssetList',
+assetManagementController.controller('AssetsCtrl', ['$scope', '$route', '$routeParams', 'AssetList','AssetTypeList',
     function ($scope, $route, $routeParams, AssetList) {
 
         $scope.paginationInfo = {
@@ -28,8 +28,11 @@ assetManagementController.controller('AssetsCtrl', ['$scope', '$route', '$routeP
 
         var typeMode = $route.current.typeMode !== 'type';
 
-        $scope.titleText = typeMode ? 'Assets' : 'All Assets From Type '+$routeParams.type_id;
+        //schöner machen mit Service!!!
+        var assetTypeNames=["Default Asset Types","Monitoring Tools","Test Tools","CI Tools","Visualisation Tools","Database Tools"];
 
+        $scope.titleText = typeMode ? 'Assets' : 'All Assets From Type ';
+        $scope.assetType = assetTypeNames[$routeParams.type_id-1];
         $scope.getPaginated = function () {
             var search;
 
@@ -47,7 +50,7 @@ assetManagementController.controller('AssetsCtrl', ['$scope', '$route', '$routeP
                     searchText: search
                 };
             }
-            if ($routeParams.type_id) {
+            else if ($routeParams.type_id) {
                 args = {
                     pageSize: $scope.paginationInfo.pageSize,
                     page: $scope.paginationInfo.page,
@@ -126,7 +129,11 @@ assetManagementController.controller('EditAssetCtrl', ['$scope', '$route', '$rou
             var d = date.getDate();
             var m = date.getMonth() + 1;
             var y = date.getFullYear();
-            return '' + y + '-' + (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+            return '' + y + '.' + (m <= 9 ? '0' + m : m) + '.' + (d <= 9 ? '0' + d : d);
+        }
+        function YMDtodate(s){
+            var tmp= s.split("-");
+            return new Date(tmp[2],tmp[1]-1,tmp[0]);
         }
 
 
@@ -138,9 +145,13 @@ assetManagementController.controller('EditAssetCtrl', ['$scope', '$route', '$rou
             currency: ''
         };
 
+
         if (editMode) {
             $scope.asset = Asset.get({assetId: $routeParams.asset_id}, function(asset){
                 $scope.asset = asset;
+                //console.log("construction date "+asset.construction_date);
+                //console.log(YMDtodate(asset.construction_date));
+                $scope.asset.construction_date=YMDtodate(asset.construction_date);
             });
 
 
@@ -209,6 +220,19 @@ assetManagementController.controller('EditAssetCtrl', ['$scope', '$route', '$rou
         }
 
 
+        // -------------------------------------------------- date stuff ---------------------------------------
+
+        $scope.open = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.opened = true;
+        };
+
+        $scope.dateOptions = {
+            startingDay:1
+        };
+
+        $scope.initDate = new Date();
     }
 
 ]);

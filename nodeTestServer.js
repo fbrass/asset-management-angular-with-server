@@ -3,7 +3,7 @@
  *
  * BEFORE RUNNING INSTALL NODE MODULES!!!
  *  1. install node
- *  2. run "npm install express -g"
+ *  2. run "npm install
  *
  */
 var express = require('express');
@@ -11,7 +11,6 @@ var app = express();
 var path = require('path');
 
 var html_dir = path.resolve('src/main/webapp/');
-console.log(html_dir);
 
 var mockedAssetTypes = [
     {

@@ -14,7 +14,7 @@ assetManagementServices.factory('AssetTypeList', ['$resource',
 
 assetManagementServices.factory('AssetList', ['$resource',
     function ($resource) {
-        return $resource('resources/assetlist/:assetId/:pageSize/:page/:searchText/:typeId', {
+        return $resource('resources/assetlist/', {
                 assetId: null, pageSize: null, page: null, searchText: null, typeId: null
             },
             {

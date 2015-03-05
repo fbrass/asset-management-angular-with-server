@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1 >{{titleText}}</h1>
+    <h1 >{{titleText}}<strong>{{assetType}}</strong></h1>
 
 </div>
 
@@ -27,7 +27,7 @@
         </div>
         <ul>
             <li ng-repeat="a in assets">
-                <a href="#/edit-asset/{{a.asset_id}}">{{a.name}}</a>
+                <a href="#/edit-asset/{{a.asset_id}}">{{a.name}} {{a.version}}</a>
 
             </li>
         </ul>

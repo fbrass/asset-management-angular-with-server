@@ -18,20 +18,17 @@
                 <thead>
                 <tr>
                     <th>Type</th>
-                    <th>Version</th>
+                    <th>Function</th>
                     <th>Description</th>
                     <th>Maker</th>
-                    <th>Function</th>
-                    <th>Comment</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="assetType in assetTypeActive">
                     <td class="col1"><a href="#/asset/{{assetType.type_id}}">{{assetType.assetTypeName}}</a></td>
-                    <td class="col2">{{assetType.version}}</td>
+                    <td class="col2">{{assetType.function}}</td>
                     <td class="col3">{{assetType.description}}</td>
                     <td class="col4">{{assetType.make}}</td>
-                    <td class="col5">{{assetType.function}}</td>
                 </tr>
                 </tbody>
             </table>

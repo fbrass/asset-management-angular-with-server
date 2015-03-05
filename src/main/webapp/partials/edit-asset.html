@@ -13,6 +13,7 @@
             <div class="form-group">
                 <label for="assetlogo" ng-show="!dropSupported" class="control-label">Asset logo</label>
                 <input ng-show="!dropSupported" type="text" ng-model="asset.logo" id="assetlogo"/>
+
                 <div ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="file-upload-drag-over"
                      ng-show="dropSupported" class="file-upload-drop-area">
                     <div class="cell">
@@ -56,21 +57,31 @@
                        placeholder="Optional comment">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':asset.construction_date.$invalid}">
                 <label class="control-label">Construction Date:</label>
-                <input ng-model="asset.construction_date" name="construction_date" type="date" class="form-control"
-                       placeholder="Construction date">
+                <div class="input.group">
+                    <input ng-model="asset.construction_date" name="construction_date" type="text" class="form-control"
+                           placeholder="Construction date" datepicker-popup="yyyy-MM-dd" is-open="opened"
+                           datepicker-options="dateOptions" show-button-bar="false"
+                           ng-required="true">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+                <span ng-show="asset.construction_date.$invalid" class="help-block">
+                    Construction date is required
+                </span>
             </div>
 
             <div class="form-group">
                 <label class="control-label">Opening Value:</label>
                 <input ng-model="asset.opening_value" name="opening_value" type="number" class="form-control"
-                       placeholder="Opening value">
+                       placeholder="Opening value" step="10">
             </div>
 
             <div class="form-group">
                 <label class="control-label">Currency:</label>
-                <input ng-model="asset.currency" name="currency" type="text" class="form-control" placeholder="curency">
+                <input ng-model="asset.currency" name="currency" type="text" class="form-control" placeholder="curency" ">
 
 
             </div>
