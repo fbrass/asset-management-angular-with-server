@@ -5,6 +5,7 @@ import de.spqrinfo.assetmanagement.persistence.AssetType;
 import de.spqrinfo.assetmanagement.service.AssetManagementService;
 import de.spqrinfo.assetmanagement.web.rest.dto.AssetDto;
 import de.spqrinfo.assetmanagement.web.rest.dto.AssetPaginatedDto;
+import de.spqrinfo.assetmanagement.web.rest.dto.AssetTypeListDto;
 
 import javax.inject.Inject;
 import javax.websocket.server.PathParam;
@@ -15,6 +16,7 @@ import javax.ws.rs.Produces;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -26,54 +28,38 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @Consumes(APPLICATION_JSON)
 public class AssetTypeListRest {
 
-    private static final Logger log = Logger.getLogger(AssetTypeListRest.class.getName());
-
-    private static final int PAGE_SIZE_MAX = 4000;
-
     @Inject
     private AssetManagementService assetManagementService;
 
     @GET
-    @Path("{typeId}")
-    public AssetDto getAsset(@PathParam("typeId") final long id) {
-        final Asset a = this.assetManagementService.getAsset(id);
-        return getAssetDto(a);
+    public AssetTypeListDto[] getAll() {
+        final List<AssetType> assetTypes = this.assetManagementService.getAssetTypes();
+        final List<AssetTypeListDto> result = assetTypes.stream().map(AssetTypeListRest::to).collect(Collectors.toList());
+        return result.toArray(new AssetTypeListDto[result.size()]);
     }
 
-    @GET
-    @Path("{pageSize]/{page]")
-    public AssetPaginatedDto getAll(@PathParam("pageSize") final Integer pageSize,
-                                    @PathParam("page") final Integer page) {
-        return getAssetPaginatedDto(pageSize, page, null);
-    }
-
-
-    private AssetPaginatedDto getAssetPaginatedDto(final Integer pageSize, final Integer page, final String searchText) {
-        return null;
-    }
-
-    private static AssetDto getAssetDto(final Asset asset) {
-        if (asset == null) {
+    private static AssetTypeListDto to(final AssetType a){
+        if(a==null){
             return null;
         }
-        final AssetDto a = new AssetDto();
-        a.setAsset_id(asset.getAssetID());
-        a.setLocation_id(null);
-        a.setType_id(asset.getAssetType().getTypeId());
 
-        a.setName(asset.getName());
-        a.setVersion(asset.getVersion());
-        a.setComment(asset.getComment());
-        a.setConstruction_date(asset.getConstructionDate());
-        a.setOpening_value(asset.getOpeningValue());
-        a.setCurrency(asset.getCurrency());
-
-        //logo muss noch gemacht werden
-        a.setLogoId(null);
-
-        return a;
-
+        final AssetTypeListDto ad=new AssetTypeListDto();
+        ad.setAssetTypeName(a.getTypeName());
+        ad.setDescription(a.getDescription());
+        ad.setFunction(a.getFunction());
+        ad.setMake(a.getMake());
+        ad.setTypeID(a.getTypeId());
+        return  ad;
     }
 
 
 }
+
+
+/*
+    private long typeID;
+    private String assetTypeName;
+    private String function;
+    private String description;
+    private String make;
+    */
